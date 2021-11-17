@@ -18,23 +18,23 @@ def get_html_template():
 
 
 def get_beverages_table():
-    excel_data_df = pandas.read_excel(
+    beverages = pandas.read_excel(
         'wine.xlsx',
         sheet_name='Лист1',
         usecols=['Категория', 'Название', 'Сорт', 'Цена', 'Картинка', 'Акция'],
         na_values=' ',
         keep_default_na=False
         )
-    beverages_table = (excel_data_df.to_dict(orient='records'))
+    beverages_dict = (beverages.to_dict(orient='records'))
 
-    return beverages_table
+    return beverages_dict
 
 
-def get_assortment(beverages_table):
+def get_assortment(beverages_dict):
     assortment = collections.defaultdict(list)
-    for beverages in beverages_table:
+    for beverages in beverages_dict:
         assortment[beverages['Категория']].append(beverages)
-    assortment=OrderedDict(sorted(assortment.items()))
+    assortment = OrderedDict(sorted(assortment.items()))
 
     return assortment
 
@@ -55,8 +55,8 @@ def write_rendered_page(rendered_page):
 
 if __name__ == '__main__':
     template = get_html_template()
-    beverages_table = get_beverages_table()
-    assortment = get_assortment(beverages_table)
+    beverages_dict = get_beverages_table()
+    assortment = get_assortment(beverages_dict)
     rendered_page = get_rendered_page(assortment, template)
     write_rendered_page(rendered_page)
     server = HTTPServer(('0.0.0.0', 8000), SimpleHTTPRequestHandler)
