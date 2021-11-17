@@ -1,12 +1,10 @@
-from http.server import HTTPServer, SimpleHTTPRequestHandler
-from jinja2 import Environment, FileSystemLoader, select_autoescape
-
-from typing import OrderedDict
 import collections
+from datetime import date
+from http.server import HTTPServer, SimpleHTTPRequestHandler
+from typing import OrderedDict
 
 import pandas
-
-from datetime import date
+from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 
 def get_html_template():
