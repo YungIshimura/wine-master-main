@@ -12,7 +12,7 @@ def get_html_template():
         loader=FileSystemLoader('.'),
         autoescape=select_autoescape(['html', 'xml'])
     )
-    template = env.get_template("template.html")
+    template = env.get_template('template.html')
 
     return template
 
@@ -49,7 +49,7 @@ def get_rendered_page(assortment, template):
 
 
 def write_rendered_page(rendered_page):
-    with open('index.html', 'w', encoding="utf8") as file:
+    with open('index.html', 'w', encoding='utf8') as file:
         file.write(rendered_page)
 
 
