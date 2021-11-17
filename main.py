@@ -17,7 +17,7 @@ def get_html_template():
     return template
 
 
-def get_beverages_table():
+def get_beverages_dict():
     beverages = pandas.read_excel(
         'wine.xlsx',
         sheet_name='Лист1',
@@ -67,7 +67,7 @@ def write_rendered_page(rendered_page):
 
 if __name__ == '__main__':
     template = get_html_template()
-    beverages_dict = get_beverages_table()
+    beverages_dict = get_beverages_dict()
     assortment = get_assortment(beverages_dict)
     wineary_age = get_wineary_age()
     rendered_page = get_rendered_page(assortment, template, wineary_age)
