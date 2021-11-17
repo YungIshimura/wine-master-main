@@ -39,9 +39,21 @@ def get_assortment(beverages_dict):
     return assortment
 
 
-def get_rendered_page(assortment, template):
+def get_wineary_age():
+    age = date.today().year - 1920
+    if age % 10 == 1:
+        wineary_age = f'Уже {age} год с вами! '
+    elif age % 10 == 2 or 3 or 4:
+        wineary_age = f'Уже {age} года с вами! '
+    else:
+        wineary_age = f'Уже {age} лет с вами! '
+
+    return wineary_age
+
+
+def get_rendered_page(assortment, template, wineary_age):
     rendered_page = template.render(
-        year=date.today().year,
+        wineary_age=wineary_age,
         assortment=assortment
             )
 
@@ -57,7 +69,8 @@ if __name__ == '__main__':
     template = get_html_template()
     beverages_dict = get_beverages_table()
     assortment = get_assortment(beverages_dict)
-    rendered_page = get_rendered_page(assortment, template)
+    wineary_age = get_wineary_age()
+    rendered_page = get_rendered_page(assortment, template, wineary_age)
     write_rendered_page(rendered_page)
     server = HTTPServer(('0.0.0.0', 8000), SimpleHTTPRequestHandler)
     server.serve_forever()
