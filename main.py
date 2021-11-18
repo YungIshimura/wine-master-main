@@ -2,9 +2,26 @@ import collections
 from datetime import date
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from typing import OrderedDict
+import argparse
 
 import pandas
 from jinja2 import Environment, FileSystemLoader, select_autoescape
+
+
+def configure_parser():
+    parser = argparse.ArgumentParser('''
+    Код для сайта Новое русское вино.
+    Для запуска необходим Excel файл с данными о вине
+    (категория, название, сорт, цена, картинка, акция).
+    Вы можете создать свой, либо использовать  дефолтный файл wine.xlsx,
+    который находится в корне проекта.
+    ''')
+    parser.add_argument(
+        '--path',
+        default='wine.xlsx',
+        help=('Введите название Excel файла'))
+
+    return parser
 
 
 def get_html_template():
@@ -19,7 +36,7 @@ def get_html_template():
 
 def get_beverages_dict():
     beverages = pandas.read_excel(
-        'wine.xlsx',
+        args.path,
         sheet_name='Лист1',
         usecols=['Категория', 'Название', 'Сорт', 'Цена', 'Картинка', 'Акция'],
         na_values=' ',
@@ -66,6 +83,8 @@ def write_rendered_page(rendered_page):
 
 
 if __name__ == '__main__':
+    parser = configure_parser()
+    args = parser.parse_args()
     template = get_html_template()
     beverages_dict = get_beverages_dict()
     assortment = get_assortment(beverages_dict)
