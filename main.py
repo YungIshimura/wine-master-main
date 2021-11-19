@@ -42,9 +42,9 @@ def get_beverages_dict():
         na_values=' ',
         keep_default_na=False
         )
-    beverages_dict = beverages.to_dict(orient='records')
+    beverages = beverages.to_dict(orient='records')
 
-    return beverages_dict
+    return beverages
 
 
 def get_assortment(beverages_dict):
@@ -86,8 +86,8 @@ if __name__ == '__main__':
     parser = configure_parser()
     args = parser.parse_args()
     template = get_html_template()
-    beverages_dict = get_beverages_dict()
-    assortment = get_assortment(beverages_dict)
+    beverages = get_beverages_dict()
+    assortment = get_assortment(beverages)
     wineary_age = get_wineary_age()
     rendered_page = get_rendered_page(assortment, template, wineary_age)
     write_rendered_page(rendered_page)
