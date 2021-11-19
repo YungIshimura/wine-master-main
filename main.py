@@ -42,7 +42,7 @@ def get_beverages_dict():
         na_values=' ',
         keep_default_na=False
         )
-    beverages_dict = (beverages.to_dict(orient='records'))
+    beverages_dict = beverages.to_dict(orient='records')
 
     return beverages_dict
 
