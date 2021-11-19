@@ -57,7 +57,7 @@ def get_assortment(beverages_dict):
 
 
 def get_wineary_age():
-    age = date.today().year - 1920
+    age = date.today().year - winery_age
     if age % 10 == 1:
         wineary_age = f'Уже {age} год с вами! '
     elif age % 10 == 2 or 3 or 4:
@@ -83,6 +83,7 @@ def write_rendered_page(rendered_page):
 
 
 if __name__ == '__main__':
+    winery_age = 1920
     parser = configure_parser()
     args = parser.parse_args()
     template = get_html_template()
