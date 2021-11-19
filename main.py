@@ -68,20 +68,6 @@ def get_wineary_age():
     return wineary_age
 
 
-def get_rendered_page(assortment, template, wineary_age):
-    rendered_page = template.render(
-        wineary_age=wineary_age,
-        assortment=assortment
-            )
-
-    return rendered_page
-
-
-def write_rendered_page(rendered_page):
-    with open('index.html', 'w', encoding='utf8') as file:
-        file.write(rendered_page)
-
-
 if __name__ == '__main__':
     winery_age = 1920
     parser = configure_parser()
@@ -90,7 +76,14 @@ if __name__ == '__main__':
     beverages = get_beverages_dict()
     assortment = get_assortment(beverages)
     wineary_age = get_wineary_age()
-    rendered_page = get_rendered_page(assortment, template, wineary_age)
-    write_rendered_page(rendered_page)
+
+    rendered_page = template.render(
+        wineary_age=wineary_age,
+        assortment=assortment
+            )
+
+    with open('index.html', 'w', encoding='utf8') as file:
+        file.write(rendered_page)
+
     server = HTTPServer(('0.0.0.0', 8000), SimpleHTTPRequestHandler)
     server.serve_forever()
