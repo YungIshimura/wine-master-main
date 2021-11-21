@@ -34,7 +34,7 @@ def get_html_template():
     return template
 
 
-def get_beverages_dict():
+def get_beverages():
     beverages = pandas.read_excel(
         args.path,
         sheet_name='Лист1',
@@ -47,10 +47,10 @@ def get_beverages_dict():
     return beverages
 
 
-def get_assortment(beverages_dict):
+def get_assortment(beverages):
     assortment = collections.defaultdict(list)
-    for beverages in beverages_dict:
-        assortment[beverages['Категория']].append(beverages)
+    for beverage in beverages:
+        assortment[beverage['Категория']].append(beverage)
     assortment = OrderedDict(sorted(assortment.items()))
 
     return assortment
@@ -73,7 +73,7 @@ if __name__ == '__main__':
     parser = configure_parser()
     args = parser.parse_args()
     template = get_html_template()
-    beverages = get_beverages_dict()
+    beverages = get_beverages()
     assortment = get_assortment(beverages)
     wineary_age = get_wineary_age()
 
